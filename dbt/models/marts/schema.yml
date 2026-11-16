@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: fct_monthly_sales_performance
+    description: "Monthly sales mart aggregated by month, territory, and product category with MoM and YoY revenue growth."
+    columns:
+      - name: order_month
+        description: "First day of the sales month"
+        tests: [not_null]
+      - name: territory_name
+        description: "Territory name"
+        tests: [not_null]
+      - name: category_name
+        description: "Product category name"
+        tests: [not_null]
+      - name: total_net_revenue
+        description: "Total net revenue after discounts"
+        tests: [not_null]
+
+  - name: fct_monthly_customer_cohorts
+    description: "Monthly customer cohort mart detailing new vs returning customers, acquisition volume, and retention rate."
+    columns:
+      - name: order_month
+        description: "First day of the sales month"
+        tests: [unique, not_null]
+      - name: total_active_customers
+        description: "Count of distinct active customers in month"
+        tests: [not_null]
+      - name: retention_rate_pct
+        description: "Percentage of repeat customers over total active customers"
+        tests: [not_null]

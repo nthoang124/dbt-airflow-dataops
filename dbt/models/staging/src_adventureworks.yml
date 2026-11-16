@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: adventureworks
+    database: AdventureWorks2014
+    schema: Sales
+    tables:
+      - name: Customer
+      - name: SalesOrderHeader
+      - name: SalesOrderDetail
+      - name: Store
+      - name: SalesTerritory
+
+  - name: adventureworks_production
+    database: AdventureWorks2014
+    schema: Production
+    tables:
+      - name: Product
+      - name: ProductSubcategory
+      - name: ProductCategory
+
+  - name: adventureworks_person
+    database: AdventureWorks2014
+    schema: Person
+    tables:
+      - name: Person

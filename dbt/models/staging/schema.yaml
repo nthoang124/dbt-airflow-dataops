@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staging table for customers"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: territory_id
+        description: "Foreign key to territories"
+        tests:
+          - not_null
+
+  - name: stg_products
+    description: "Staging table for products"
+    columns:
+      - name: product_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        tests:
+          - not_null
+      - name: list_price
+        tests:
+          - not_null
+
+ 
