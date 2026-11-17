@@ -1,0 +1,43 @@
+[project]
+name = "dbt-airflow-project"
+version = "1.0.0"
+description = "Local dbt development environment (SQL Server adapter) for the dbt + Airflow DataOps lab"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    # Pinned to match dbt/Dockerfile so local runs behave like the container
+    "dbt-core==1.8.7",
+    "dbt-sqlserver==1.8.7",
+    "pyodbc>=5.1,<6",
+    "python-dotenv>=1.0,<2",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0,<5",
+    "ruff>=0.9,<1",
+    "sqlfluff>=3.0,<4",
+    "sqlfluff-templater-dbt>=3.0,<4",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["venv", ".venv", "dbt/dbt_packages", "dbt/target*"]
+
+[tool.ruff.lint]
+# Ruff replaces flake8, black and pylint. Rule families: pycodestyle (E, W),
+# pyflakes (F), isort (I), pyupgrade (UP), bugbear (B).
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+# Local dbt runs use the `local` target and separate build folders, so they never
+# collide with files written by the Airflow container (see venv/bin/activate).
+# Setup on a new machine:
+#   uv venv venv --python 3.11
+#   UV_PROJECT_ENVIRONMENT=venv uv sync
+#   source venv/bin/activate && cd dbt && dbt deps && dbt debug
